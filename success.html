@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Confirmed - ETI Campus Code Games</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black text-white min-h-screen flex items-center justify-center">
+    <div class="max-w-lg mx-auto text-center px-6">
+        <div class="text-8xl mb-6">🎉</div>
+        <h1 class="text-5xl font-bold mb-3">You're In!</h1>
+        <p class="text-cyan-400 text-2xl mb-10">Payment Successful • Registration Confirmed</p>
+
+        <div class="bg-zinc-900 rounded-3xl p-10 mb-10">
+            <p class="text-white/70 mb-2">Your Registration ID:</p>
+            <p id="regId" class="font-mono text-3xl text-emerald-400 break-all">ETI-XXXXXX</p>
+        </div>
+
+        <div class="space-y-4 text-left mb-12">
+            <p class="flex items-start gap-3"><span class="text-emerald-400 mt-1">✓</span> You will receive a confirmation email shortly</p>
+            <p class="flex items-start gap-3"><span class="text-emerald-400 mt-1">✓</span> Check the leaderboard after a few days</p>
+            <p class="flex items-start gap-3"><span class="text-emerald-400 mt-1">✓</span> Join our WhatsApp group for updates</p>
+        </div>
+
+        <div id="statusMessage" class="text-sm text-white/70 mb-8"></div>
+
+        <a href="index.html" class="block bg-white text-black font-bold py-5 rounded-3xl text-xl hover:bg-cyan-400 transition">
+            Back to Homepage
+        </a>
+    </div>
+
+    <script>
+        // Try to get reference from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const reference = urlParams.get('reference');
+        if (reference) {
+            document.getElementById('regId').textContent = "ETI-" + reference.slice(-8);
+        }
+
+        async function verifyAndSave() {
+            const msgEl = document.getElementById('statusMessage');
+            msgEl.textContent = "Verifying your payment...";
+
+            if (!reference) {
+                msgEl.innerHTML = "No reference found.";
+                return;
+            }
+
+            try {
+                const res = await fetch(`http://localhost:5000/api/verify-payment?reference=${reference}`);
+                const data = await res.json();
+
+                if (data.status === "success") {
+                    document.getElementById('regId').textContent = data.registration_id || "ETI-" + reference.slice(-8);
+                    msgEl.innerHTML = `<span class="text-emerald-400">✅ Registration saved successfully!</span>`;
+                } else {
+                    msgEl.innerHTML = `<span class="text-amber-400">Payment verified but save failed. Contact admin.</span>`;
+                }
+            } catch (err) {
+                console.error(err);
+                msgEl.innerHTML = `<span class="text-amber-400">Payment successful but could not save record (localhost issue).</span>`;
+            }
+        }
+
+        // Run verification automatically
+        window.onload = verifyAndSave;
+    </script>
+</body>
+</html>

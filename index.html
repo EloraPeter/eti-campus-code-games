@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,16 +9,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&display=swap');
-        
+
         :root {
             --neon-cyan: #00f0ff;
             --neon-purple: #c724ff;
         }
-        
+
         body {
             font-family: 'Inter', sans-serif;
         }
-        
+
         .heading-font {
             font-family: 'Space Grotesk', sans-serif;
         }
@@ -27,7 +28,7 @@
         }
 
         .neon-text {
-            text-shadow: 
+            text-shadow:
                 0 0 10px var(--neon-cyan),
                 0 0 20px var(--neon-cyan),
                 0 0 40px var(--neon-purple);
@@ -36,7 +37,7 @@
         .card-hover {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
+
         .card-hover:hover {
             transform: translateY(-4px);
             box-shadow: 0 0 30px -10px var(--neon-cyan);
@@ -47,21 +48,29 @@
         }
 
         @keyframes glitch {
-            0% { text-shadow: 2px 2px #00f0ff, -2px -2px #c724ff; }
-            100% { text-shadow: -2px -2px #00f0ff, 2px 2px #c724ff; }
+            0% {
+                text-shadow: 2px 2px #00f0ff, -2px -2px #c724ff;
+            }
+
+            100% {
+                text-shadow: -2px -2px #00f0ff, 2px 2px #c724ff;
+            }
         }
     </style>
 </head>
+
 <body class="bg-black text-white overflow-x-hidden">
 
     <!-- NAVBAR -->
     <nav class="border-b border-white/10 bg-black/80 backdrop-blur-lg fixed w-full z-50">
         <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
             <div class="flex items-center gap-x-3">
-                <div class="w-9 h-9 bg-gradient-to-br from-cyan-400 to-purple-600 rounded-2xl flex items-center justify-center text-2xl">⚔️</div>
+                <div
+                    class="w-9 h-9 bg-gradient-to-br from-cyan-400 to-purple-600 rounded-2xl flex items-center justify-center text-2xl">
+                    ⚔️</div>
                 <h1 class="heading-font text-3xl tracking-tighter">ETI CAMPUS CODE GAMES</h1>
             </div>
-            
+
             <div class="hidden md:flex items-center gap-x-8 text-sm font-medium">
                 <a href="#competitions" class="hover:text-cyan-400 transition-colors">Competitions</a>
                 <a href="#prizes" class="hover:text-cyan-400 transition-colors">Prizes</a>
@@ -71,14 +80,14 @@
             </div>
 
             <div class="flex items-center gap-x-4">
-                <button onclick="showRegisterModal()" 
-                        class="bg-white text-black px-6 py-3 rounded-2xl font-semibold hover:bg-cyan-400 hover:text-black transition-all flex items-center gap-x-2">
+                <button onclick="showRegisterModal()"
+                    class="bg-white text-black px-6 py-3 rounded-2xl font-semibold hover:bg-cyan-400 hover:text-black transition-all flex items-center gap-x-2">
                     <i class="fas fa-trophy"></i>
                     REGISTER NOW
                 </button>
-                
-                <button onclick="showAmbassadorModal()" 
-                        class="border border-white/30 hover:border-cyan-400 px-6 py-3 rounded-2xl font-semibold transition-all">
+
+                <button onclick="showAmbassadorModal()"
+                    class="border border-white/30 hover:border-cyan-400 px-6 py-3 rounded-2xl font-semibold transition-all">
                     BECOME AMBASSADOR
                 </button>
 
@@ -104,9 +113,11 @@
     <section class="hero-bg min-h-screen flex items-center pt-20">
         <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
             <div class="space-y-8">
-                <div class="inline-flex items-center gap-x-2 bg-white/10 text-white text-sm font-medium px-4 py-2 rounded-3xl border border-white/20">
+                <div
+                    class="inline-flex items-center gap-x-2 bg-white/10 text-white text-sm font-medium px-4 py-2 rounded-3xl border border-white/20">
                     <span class="relative flex h-3 w-3">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
                         <span class="relative inline-flex rounded-full h-3 w-3 bg-cyan-400"></span>
                     </span>
                     2026 SEMESTER 1 • NOW OPEN
@@ -115,21 +126,21 @@
                 <h1 class="heading-font text-7xl md:text-8xl leading-none tracking-tighter neon-text">
                     NIGERIA'S<br>BIGGEST<br>UNIVERSITY<br>TECH CLASH
                 </h1>
-                
+
                 <p class="text-2xl text-white/70 max-w-lg">
                     Coding • Hacking • Game Tournaments • UI/UX • Startup Pitches<br>
                     <span class="text-cyan-400">Every semester. Every campus.</span>
                 </p>
 
                 <div class="flex flex-wrap gap-4">
-                    <button onclick="showRegisterModal()" 
-                            class="bg-gradient-to-r from-cyan-400 to-purple-600 text-black font-bold text-xl px-10 py-6 rounded-3xl flex items-center gap-x-3 hover:scale-105 transition-transform">
+                    <button onclick="showRegisterModal()"
+                        class="bg-gradient-to-r from-cyan-400 to-purple-600 text-black font-bold text-xl px-10 py-6 rounded-3xl flex items-center gap-x-3 hover:scale-105 transition-transform">
                         <i class="fas fa-rocket"></i>
                         REGISTER FOR ₦2,000
                     </button>
-                    
-                    <button onclick="showAmbassadorModal()" 
-                            class="border-2 border-white/30 hover:border-purple-400 text-lg font-medium px-8 py-6 rounded-3xl flex items-center gap-x-3 transition-all">
+
+                    <button onclick="showAmbassadorModal()"
+                        class="border-2 border-white/30 hover:border-purple-400 text-lg font-medium px-8 py-6 rounded-3xl flex items-center gap-x-3 transition-all">
                         <i class="fas fa-crown"></i>
                         APPLY AS CAMPUS AMBASSADOR
                     </button>
@@ -137,9 +148,15 @@
 
                 <div class="flex items-center gap-x-8 text-sm">
                     <div class="flex -space-x-4">
-                        <div class="w-8 h-8 bg-gradient-to-br from-pink-400 to-cyan-400 rounded-2xl ring-2 ring-black flex items-center justify-center text-xs">🇳🇬</div>
-                        <div class="w-8 h-8 bg-gradient-to-br from-purple-400 to-cyan-400 rounded-2xl ring-2 ring-black flex items-center justify-center text-xs">UNILAG</div>
-                        <div class="w-8 h-8 bg-gradient-to-br from-cyan-400 to-green-400 rounded-2xl ring-2 ring-black flex items-center justify-center text-xs">DELSU</div>
+                        <div
+                            class="w-8 h-8 bg-gradient-to-br from-pink-400 to-cyan-400 rounded-2xl ring-2 ring-black flex items-center justify-center text-xs">
+                            🇳🇬</div>
+                        <div
+                            class="w-8 h-8 bg-gradient-to-br from-purple-400 to-cyan-400 rounded-2xl ring-2 ring-black flex items-center justify-center text-xs">
+                            UNILAG</div>
+                        <div
+                            class="w-8 h-8 bg-gradient-to-br from-cyan-400 to-green-400 rounded-2xl ring-2 ring-black flex items-center justify-center text-xs">
+                            DELSU</div>
                     </div>
                     <p class="text-white/60">Already 1,247 students registered from 12 universities</p>
                 </div>
@@ -153,7 +170,9 @@
 
             <!-- Hero Visual -->
             <div class="relative hidden md:block">
-                <div class="absolute -inset-4 bg-gradient-to-br from-cyan-400/20 to-purple-600/20 blur-3xl rounded-[4rem]"></div>
+                <div
+                    class="absolute -inset-4 bg-gradient-to-br from-cyan-400/20 to-purple-600/20 blur-3xl rounded-[4rem]">
+                </div>
                 <div class="bg-zinc-900 border border-white/10 rounded-3xl p-8 relative">
                     <div class="flex justify-between mb-6">
                         <div class="text-cyan-400 font-mono text-sm">LIVE LEADERBOARD</div>
@@ -182,8 +201,9 @@
                             <span class="font-mono">1,980 pts</span>
                         </div>
                     </div>
-                    
-                    <div class="text-center mt-8 text-xs text-white/40 tracking-widest">NEXT BATTLE IN 14 DAYS • 18 UNIVERSITIES</div>
+
+                    <div class="text-center mt-8 text-xs text-white/40 tracking-widest">NEXT BATTLE IN 14 DAYS • 18
+                        UNIVERSITIES</div>
                 </div>
             </div>
         </div>
@@ -254,12 +274,17 @@
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid md:grid-cols-12 gap-12 items-center">
                 <div class="md:col-span-5">
-                    <h2 class="heading-font text-6xl leading-none mb-6">₦500,000+ PRIZE POOL<br>PLUS REAL OPPORTUNITIES</h2>
+                    <h2 class="heading-font text-6xl leading-none mb-6">₦500,000+ PRIZE POOL<br>PLUS REAL OPPORTUNITIES
+                    </h2>
                     <ul class="space-y-6 text-lg">
-                        <li class="flex gap-x-4"><i class="fas fa-trophy text-amber-400 mt-1"></i> Cash prizes for top 3 in every category</li>
-                        <li class="flex gap-x-4"><i class="fas fa-certificate text-cyan-400 mt-1"></i> Official ETI certificates (LinkedIn verified)</li>
-                        <li class="flex gap-x-4"><i class="fas fa-briefcase text-purple-400 mt-1"></i> Internship &amp; job offers from sponsors</li>
-                        <li class="flex gap-x-4"><i class="fas fa-users text-emerald-400 mt-1"></i> National recognition + media feature</li>
+                        <li class="flex gap-x-4"><i class="fas fa-trophy text-amber-400 mt-1"></i> Cash prizes for top 3
+                            in every category</li>
+                        <li class="flex gap-x-4"><i class="fas fa-certificate text-cyan-400 mt-1"></i> Official ETI
+                            certificates (LinkedIn verified)</li>
+                        <li class="flex gap-x-4"><i class="fas fa-briefcase text-purple-400 mt-1"></i> Internship &amp;
+                            job offers from sponsors</li>
+                        <li class="flex gap-x-4"><i class="fas fa-users text-emerald-400 mt-1"></i> National recognition
+                            + media feature</li>
                     </ul>
                 </div>
                 <div class="md:col-span-7 bg-zinc-900 rounded-3xl p-10 grid grid-cols-2 gap-6">
@@ -287,7 +312,8 @@
     <!-- UNIVERSITIES -->
     <section class="py-20 bg-black">
         <div class="max-w-7xl mx-auto px-6">
-            <p class="text-center text-white/40 text-sm tracking-widest mb-8">STARTING WITH THESE POWERHOUSES • MORE JOINING EVERY WEEK</p>
+            <p class="text-center text-white/40 text-sm tracking-widest mb-8">STARTING WITH THESE POWERHOUSES • MORE
+                JOINING EVERY WEEK</p>
             <div class="flex flex-wrap justify-center gap-x-12 gap-y-8 opacity-70">
                 <div class="text-3xl font-medium">UNILAG</div>
                 <div class="text-3xl font-medium">DELSU</div>
@@ -305,9 +331,10 @@
     <section id="ambassadors" class="py-24 bg-gradient-to-br from-purple-950 to-black border-t border-white/10">
         <div class="max-w-4xl mx-auto text-center px-6">
             <h2 class="heading-font text-6xl mb-6">BECOME AN ETI CAMPUS TECH LEADER</h2>
-            <p class="text-2xl text-white/70 mb-12">Earn ₦500 per student you recruit • Get exclusive status • Lead your campus</p>
-            <button onclick="showAmbassadorModal()" 
-                    class="text-2xl bg-white text-black px-16 py-8 rounded-3xl font-bold inline-flex items-center gap-x-4 hover:shadow-2xl hover:shadow-purple-500/50 transition-all">
+            <p class="text-2xl text-white/70 mb-12">Earn ₦500 per student you recruit • Get exclusive status • Lead your
+                campus</p>
+            <button onclick="showAmbassadorModal()"
+                class="text-2xl bg-white text-black px-16 py-8 rounded-3xl font-bold inline-flex items-center gap-x-4 hover:shadow-2xl hover:shadow-purple-500/50 transition-all">
                 APPLY NOW — LIMITED TO 3 PER UNIVERSITY
                 <span class="text-4xl">👑</span>
             </button>
@@ -347,7 +374,8 @@
                     </tbody>
                 </table>
             </div>
-            <p class="text-center text-white/40 text-sm mt-6">Updated live • Full leaderboard on the student dashboard (launching Week 2)</p>
+            <p class="text-center text-white/40 text-sm mt-6">Updated live • Full leaderboard on the student dashboard
+                (launching Week 2)</p>
         </div>
     </section>
 
@@ -355,24 +383,28 @@
     <section id="sponsors" class="py-24 bg-zinc-950">
         <div class="max-w-7xl mx-auto px-6 text-center">
             <h2 class="text-4xl mb-4">BECOME A SPONSOR • SHAPE NIGERIA'S TECH FUTURE</h2>
-            <p class="text-white/60 max-w-md mx-auto">Reach 20,000+ computing students every semester. Recruit talent. Build brand love.</p>
-            
+            <p class="text-white/60 max-w-md mx-auto">Reach 20,000+ computing students every semester. Recruit talent.
+                Build brand love.</p>
+
             <div class="mt-16 grid md:grid-cols-3 gap-6 max-w-2xl mx-auto">
                 <div class="border border-white/10 rounded-3xl p-8 hover:border-amber-400 transition-colors">
                     <div class="text-amber-400 text-sm font-medium mb-3">BRONZE • ₦200k</div>
                     <h4 class="text-2xl mb-6">Logo on website + posters</h4>
-                    <button onclick="window.location.href='#sponsor-contact'" class="w-full py-4 border text-sm">BECOME BRONZE SPONSOR</button>
+                    <button onclick="window.location.href='#sponsor-contact'" class="w-full py-4 border text-sm">BECOME
+                        BRONZE SPONSOR</button>
                 </div>
                 <div class="border border-white/10 rounded-3xl p-8 hover:border-purple-400 transition-colors relative">
                     <div class="absolute -top-2 -right-2 bg-purple-600 text-xs px-3 py-1 rounded-3xl">MOST POPULAR</div>
                     <div class="text-purple-400 text-sm font-medium mb-3">SILVER • ₦500k</div>
                     <h4 class="text-2xl mb-6">Booth + speaking slot + shirts</h4>
-                    <button onclick="window.location.href='#sponsor-contact'" class="w-full py-4 border text-sm">BECOME SILVER SPONSOR</button>
+                    <button onclick="window.location.href='#sponsor-contact'" class="w-full py-4 border text-sm">BECOME
+                        SILVER SPONSOR</button>
                 </div>
                 <div class="border border-white/10 rounded-3xl p-8 hover:border-cyan-400 transition-colors">
                     <div class="text-cyan-400 text-sm font-medium mb-3">GOLD • ₦1M+</div>
                     <h4 class="text-2xl mb-6">Headline sponsor + recruiting access</h4>
-                    <button onclick="window.location.href='#sponsor-contact'" class="w-full py-4 border text-sm">BECOME GOLD SPONSOR</button>
+                    <button onclick="window.location.href='#sponsor-contact'" class="w-full py-4 border text-sm">BECOME
+                        GOLD SPONSOR</button>
                 </div>
             </div>
         </div>
@@ -383,8 +415,12 @@
         <div class="max-w-3xl mx-auto text-center px-6">
             <h2 class="heading-font text-6xl mb-8">The semester is calling.<br>Will you answer?</h2>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <button onclick="showRegisterModal()" class="flex-1 sm:flex-none bg-cyan-400 text-black py-8 px-16 rounded-3xl text-2xl font-bold">REGISTER FOR CODE GAMES →</button>
-                <button onclick="showAmbassadorModal()" class="flex-1 sm:flex-none border-2 py-8 px-16 rounded-3xl text-2xl font-bold">APPLY AS AMBASSADOR →</button>
+                <button onclick="showRegisterModal()"
+                    class="flex-1 sm:flex-none bg-cyan-400 text-black py-8 px-16 rounded-3xl text-2xl font-bold">REGISTER
+                    FOR CODE GAMES →</button>
+                <button onclick="showAmbassadorModal()"
+                    class="flex-1 sm:flex-none border-2 py-8 px-16 rounded-3xl text-2xl font-bold">APPLY AS AMBASSADOR
+                    →</button>
             </div>
         </div>
     </section>
@@ -398,29 +434,34 @@
     </footer>
 
     <!-- REGISTER MODAL -->
-    <div id="registerModal" onclick="if(event.target===this)hideRegisterModal()" class="hidden fixed inset-0 bg-black/80 z-[100] flex items-center justify-center">
+    <div id="registerModal" onclick="if(event.target===this)hideRegisterModal()"
+        class="hidden fixed inset-0 bg-black/80 z-[100] flex items-center justify-center">
         <div onclick="event.stopImmediatePropagation()" class="bg-zinc-900 max-w-lg w-full mx-4 rounded-3xl p-8">
             <h3 class="text-3xl font-semibold mb-8 text-center">Register for ETI Campus Code Games</h3>
-            
+
             <form id="registrationForm" onsubmit="handleRegistration(event)" class="space-y-6">
                 <div>
                     <label class="block text-sm mb-2 text-white/70">Full Name</label>
-                    <input type="text" id="name" required class="w-full bg-black border border-white/20 rounded-2xl px-6 py-4 focus:border-cyan-400 outline-none">
+                    <input type="text" id="name" required
+                        class="w-full bg-black border border-white/20 rounded-2xl px-6 py-4 focus:border-cyan-400 outline-none">
                 </div>
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label class="block text-sm mb-2 text-white/70">Email</label>
-                        <input type="email" id="email" required class="w-full bg-black border border-white/20 rounded-2xl px-6 py-4 focus:border-cyan-400 outline-none">
+                        <input type="email" id="email" required
+                            class="w-full bg-black border border-white/20 rounded-2xl px-6 py-4 focus:border-cyan-400 outline-none">
                     </div>
                     <div>
                         <label class="block text-sm mb-2 text-white/70">Phone</label>
-                        <input type="tel" id="phone" required class="w-full bg-black border border-white/20 rounded-2xl px-6 py-4 focus:border-cyan-400 outline-none">
+                        <input type="tel" id="phone" required
+                            class="w-full bg-black border border-white/20 rounded-2xl px-6 py-4 focus:border-cyan-400 outline-none">
                     </div>
                 </div>
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label class="block text-sm mb-2 text-white/70">University</label>
-                        <select id="university" required class="w-full bg-black border border-white/20 rounded-2xl px-6 py-4 focus:border-cyan-400 outline-none">
+                        <select id="university" required
+                            class="w-full bg-black border border-white/20 rounded-2xl px-6 py-4 focus:border-cyan-400 outline-none">
                             <option value="">Select your school</option>
                             <option value="UNILAG">University of Lagos (UNILAG)</option>
                             <option value="DELSU">Delta State University (DELSU)</option>
@@ -432,7 +473,8 @@
                     </div>
                     <div>
                         <label class="block text-sm mb-2 text-white/70">Category</label>
-                        <select id="category" required class="w-full bg-black border border-white/20 rounded-2xl px-6 py-4 focus:border-cyan-400 outline-none">
+                        <select id="category" required
+                            class="w-full bg-black border border-white/20 rounded-2xl px-6 py-4 focus:border-cyan-400 outline-none">
                             <option value="Coding">Coding Competition</option>
                             <option value="Hackathon">Hackathon</option>
                             <option value="Hacking">Ethical Hacking (CTF)</option>
@@ -449,30 +491,33 @@
                     <p class="text-xs text-white/50">Paystack • Instant confirmation</p>
                 </div>
 
-                <button type="submit" 
-                        class="w-full bg-gradient-to-r from-cyan-400 to-purple-600 text-black py-6 rounded-3xl font-bold text-xl">
+                <button type="submit"
+                    class="w-full bg-gradient-to-r from-cyan-400 to-purple-600 text-black py-6 rounded-3xl font-bold text-xl">
                     PAY ₦2,000 &amp; CONFIRM REGISTRATION
                 </button>
             </form>
-            
+
             <button onclick="hideRegisterModal()" class="mt-6 text-white/50 w-full text-sm">Cancel</button>
         </div>
     </div>
 
     <!-- AMBASSADOR MODAL -->
-    <div id="ambassadorModal" onclick="if(event.target===this)hideAmbassadorModal()" class="hidden fixed inset-0 bg-black/80 z-[100] flex items-center justify-center">
+    <div id="ambassadorModal" onclick="if(event.target===this)hideAmbassadorModal()"
+        class="hidden fixed inset-0 bg-black/80 z-[100] flex items-center justify-center">
         <div onclick="event.stopImmediatePropagation()" class="bg-zinc-900 max-w-lg w-full mx-4 rounded-3xl p-8">
             <h3 class="text-3xl font-semibold mb-8 text-center">Apply to be an ETI Campus Tech Leader</h3>
-            
+
             <form id="ambassadorForm" onsubmit="handleAmbassadorApply(event)" class="space-y-6">
                 <div>
                     <label class="block text-sm mb-2 text-white/70">Full Name</label>
-                    <input type="text" id="ambName" required class="w-full bg-black border border-white/20 rounded-2xl px-6 py-4 focus:border-purple-400 outline-none">
+                    <input type="text" id="ambName" required
+                        class="w-full bg-black border border-white/20 rounded-2xl px-6 py-4 focus:border-purple-400 outline-none">
                 </div>
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label class="block text-sm mb-2 text-white/70">University</label>
-                        <select id="ambUniversity" required class="w-full bg-black border border-white/20 rounded-2xl px-6 py-4 focus:border-purple-400 outline-none">
+                        <select id="ambUniversity" required
+                            class="w-full bg-black border border-white/20 rounded-2xl px-6 py-4 focus:border-purple-400 outline-none">
                             <!-- Same options as above -->
                             <option value="">Select your school</option>
                             <option value="UNILAG">UNILAG</option>
@@ -484,24 +529,28 @@
                     </div>
                     <div>
                         <label class="block text-sm mb-2 text-white/70">Level</label>
-                        <input type="text" id="ambLevel" placeholder="300L" required class="w-full bg-black border border-white/20 rounded-2xl px-6 py-4 focus:border-purple-400 outline-none">
+                        <input type="text" id="ambLevel" placeholder="300L" required
+                            class="w-full bg-black border border-white/20 rounded-2xl px-6 py-4 focus:border-purple-400 outline-none">
                     </div>
                 </div>
                 <div>
                     <label class="block text-sm mb-2 text-white/70">GitHub / Portfolio Link</label>
-                    <input type="url" id="ambPortfolio" placeholder="https://github.com/yourname" class="w-full bg-black border border-white/20 rounded-2xl px-6 py-4 focus:border-purple-400 outline-none">
+                    <input type="url" id="ambPortfolio" placeholder="https://github.com/yourname"
+                        class="w-full bg-black border border-white/20 rounded-2xl px-6 py-4 focus:border-purple-400 outline-none">
                 </div>
                 <div>
-                    <label class="block text-sm mb-2 text-white/70">Why do you want to represent ETI? (max 150 words)</label>
-                    <textarea id="ambWhy" rows="4" required class="w-full bg-black border border-white/20 rounded-3xl px-6 py-4 focus:border-purple-400 outline-none"></textarea>
+                    <label class="block text-sm mb-2 text-white/70">Why do you want to represent ETI? (max 150
+                        words)</label>
+                    <textarea id="ambWhy" rows="4" required
+                        class="w-full bg-black border border-white/20 rounded-3xl px-6 py-4 focus:border-purple-400 outline-none"></textarea>
                 </div>
 
-                <button type="submit" 
-                        class="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-6 rounded-3xl font-bold text-xl">
+                <button type="submit"
+                    class="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-6 rounded-3xl font-bold text-xl">
                     SUBMIT APPLICATION
                 </button>
             </form>
-            
+
             <button onclick="hideAmbassadorModal()" class="mt-6 text-white/50 w-full text-sm">Cancel</button>
         </div>
     </div>
@@ -535,33 +584,111 @@
             modal.classList.remove('flex')
         }
 
-        // Fake Paystack registration handler
-        function handleRegistration(e) {
-            e.preventDefault()
-            const btn = e.target.querySelector('button[type="submit"]')
-            const originalText = btn.innerHTML
-            
-            btn.innerHTML = `
-                <span class="animate-pulse">Connecting to Paystack...</span>
-            `
-            setTimeout(() => {
-                alert("✅ Payment successful! Registration ID: ETI-2026-" + Math.floor(100000 + Math.random() * 900000) + "\n\nConfirmation email sent. Welcome to the Code Games!")
-                hideRegisterModal()
-                // In real app, you would call your Node backend here to save to PostgreSQL
-                btn.innerHTML = originalText
-            }, 2200)
+        // UPDATED REGISTRATION FUNCTION
+        async function handleRegistration(e) {
+            e.preventDefault();
+
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+
+            submitBtn.innerHTML = `Connecting...`;
+            submitBtn.disabled = true;
+
+            const formData = {
+                full_name: document.getElementById('name').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                university: document.getElementById('university').value,
+                category: document.getElementById('category').value,
+                department: "Computer Science",
+                level: "300L"
+            };
+
+            try {
+                const response = await fetch('http://localhost:5000/api/register/initialize', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const data = await response.json();
+
+                if (data.status && data.authorization_url) {
+                    window.location.href = data.authorization_url;
+                } else {
+                    alert(data.message || "Failed to initialize payment");
+                }
+            } catch (error) {
+                console.error("Fetch error:", error);
+                alert(`❌ Connection failed!\n\n` +
+                    `Error: ${error.message}\n\n` +
+                    `Make sure:\n` +
+                    `1. Backend server is running (nodemon server.js)\n` +
+                    `2. You opened index.html with Live Server[](http://127.0.0.1:5500)\n` +
+                    `3. No firewall or antivirus is blocking port 5000`);
+            } finally {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
         }
 
-        // Ambassador application handler
-        function handleAmbassadorApply(e) {
-            e.preventDefault()
-            alert("🎉 Application received!\n\nYou will be contacted within 48 hours. Thank you for wanting to lead on your campus.")
-            hideAmbassadorModal()
-            // In real app → POST to your Node /api/ambassadors
+        // UPDATED AMBASSADOR APPLICATION FUNCTION
+        async function handleAmbassadorApply(e) {
+            e.preventDefault();
+
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = "Submitting...";
+            submitBtn.disabled = true;
+
+            const formData = {
+                full_name: document.getElementById('ambName').value.trim(),
+                email: document.getElementById('ambName').parentElement.parentElement.querySelector('input[type="email"]')
+                    ? document.getElementById('ambName').parentElement.parentElement.querySelector('input[type="email"]').value
+                    : prompt("Enter your email"), // Temporary fallback - better to add email field
+                university: document.getElementById('ambUniversity').value,
+                level: document.getElementById('ambLevel').value.trim(),
+                portfolio_url: document.getElementById('ambPortfolio').value.trim(),
+                why_represent: document.getElementById('ambWhy').value.trim()
+            };
+
+            // Quick fix: Add email field if missing (recommended)
+            if (!formData.email) {
+                formData.email = prompt("Please enter your email address:");
+                if (!formData.email) return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:5000/api/ambassador/apply', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await response.json();
+
+                if (data.status) {
+                    alert("✅ Application submitted successfully!\n\nWe will review it and contact you soon.");
+                    hideAmbassadorModal();
+                } else {
+                    alert(data.message || "Failed to submit application.");
+                }
+            } catch (error) {
+                console.error(error);
+                alert("Could not connect to server. Make sure backend is running on port 5000.");
+            } finally {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
         }
 
         // Simple confetti for fun (optional)
         console.log('%c🚀 ETI Campus Code Games website ready for launch!', 'color:#00f0ff; font-size:18px; font-family:Space Grotesk')
     </script>
 </body>
+
 </html>
