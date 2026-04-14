@@ -1,0 +1,33 @@
+{
+  "name": "eti-code-games-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "db:init": "psql -U eti -h localhost -d eti_cc_db -f init.sql",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "axios": "^1.15.0",
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.0",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "helmet": "^8.1.0",
+    "morgan": "^1.10.1",
+    "nodemailer": "^8.0.4",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
+    "pg": "^8.20.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
