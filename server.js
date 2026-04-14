@@ -3,6 +3,9 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
+const passport = require('passport');
+require('./config/passport')(passport);
+const session = require('express-session');
 
 dotenv.config();
 
@@ -17,25 +20,44 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(morgan('dev'));
+app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }));
+app.use(passport.initialize());
+app.use(passport.session()); // Enables session-based login
 
 const pool = require('./config/db');
 
 // Routes
-const registrationRoutes = require('./routes/registration');
-const ambassadorRoutes = require('./routes/ambassador');
+const authRoutes = require('./api/v1/routes/authRoutes');
+const competitionRoutes = require('./api/v1/routes/competitionRoutes');
+const adminAuthRoutes = require('./api/admin/routes/authRoutes');
+const adminCompetitionRoutes = require('./api/admin/routes/competitionRoutes');
 const webhookRoutes = require('./routes/webhook');
 
-app.use('/api', registrationRoutes);
-app.use('/api', ambassadorRoutes);
-app.use('/api', webhookRoutes);
+// IMPORTANT: raw body for webhook
+app.use('/api/webhook/paystack', express.raw({ type: 'application/json' }));
 
-// Health check
-app.get('/', (req, res) => {
+// Public
+app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/competitions', competitionRoutes);
+
+// Admin
+app.use('/api/admin/auth', adminAuthRoutes);
+app.use('/api/admin/competitions', adminCompetitionRoutes);
+
+// Payment Webhook
+app.use('/api/webhook', webhookRoutes);
+
+// Test route
+app.get('/', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT NOW()');
     res.json({
-        message: '🚀 ETI Campus Code Games API is running',
-        status: 'active',
-        version: '1.0'
+      message: 'Server running',
+      time: result.rows[0],
     });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 // Simple Admin Route (add this before app.listen)
@@ -138,6 +160,7 @@ app.get('/api/verify-payment', async (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
+
 app.listen(PORT, () => {
     console.log(`⚔️  ETI Code Games Server running on http://localhost:${PORT}`);
 });

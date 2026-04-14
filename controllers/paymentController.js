@@ -1,87 +1,51 @@
-const https = require('https');
-const pool = require('../config/db');
+const axios = require('axios');
 
-const SECRET_KEY = process.env.PAYSTACK_SECRET_KEY;
-
-async function initializePayment(req, res) {
+async function initializePayment({ email, amount, provider }) {
   try {
-    const { 
-      full_name, 
-      email, 
-      phone, 
-      university, 
-      department = "Computer Science", 
-      level = "300L", 
-      category, 
-      team_name = "" 
-    } = req.body;
-
-    if (!email || !full_name || !university || !category) {
-      return res.status(400).json({ status: false, message: "Missing required fields" });
+    // For MVP, we only support Paystack
+    if (provider && provider !== 'paystack') {
+      throw new Error('Unsupported payment provider');
     }
 
-    const amount = 200000; // ₦2,000 in kobo
-
-    const params = JSON.stringify({
-      email,
-      amount,
-      callback_url: `${process.env.FRONTEND_URL}/success.html?reference=${Date.now()}`, 
-      metadata: {
-        full_name,
-        phone,
-        university,
-        department,
-        level,
-        category,
-        team_name
+    const response = await axios.post(
+      'https://api.paystack.co/transaction/initialize',
+      {
+        callback_url: `${process.env.FRONTEND_URL}/payment-success`,
+        email,
+        amount, // already in kobo
+        currency: 'NGN',
+        metadata: {
+          custom_fields: [
+            {
+              display_name: "User Email",
+              variable_name: "user_email",
+              value: email
+            }
+          ]
+        }
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
+          'Content-Type': 'application/json'
+        }
       }
-    });
+    );
 
-    const options = {
-      hostname: 'api.paystack.co',
-      port: 443,
-      path: '/transaction/initialize',
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${SECRET_KEY}`,
-        'Content-Type': 'application/json'
-      }
+    const data = response.data.data;
+
+    return {
+      // returns payment reference, and its link to our AuthController
+      reference: data.reference,
+      payment_link: data.authorization_url
     };
 
-    const reqPaystack = https.request(options, (apiRes) => {
-      let data = '';
-      apiRes.on('data', (chunk) => data += chunk);
-      apiRes.on('end', () => {
-        try {
-          const response = JSON.parse(data);
-          if (response.status) {
-            res.status(200).json({
-              status: true,
-              authorization_url: response.data.authorization_url,
-              reference: response.data.reference,
-              message: "Payment initialized successfully"
-            });
-          } else {
-            res.status(400).json({ status: false, message: response.message });
-          }
-        } catch (e) {
-          res.status(500).json({ status: false, message: "Failed to parse Paystack response" });
-        }
-      });
-    });
-
-    reqPaystack.on('error', (error) => {
-      console.error(error);
-      res.status(500).json({ status: false, message: "Payment initialization failed" });
-    });
-
-    reqPaystack.write(params);
-    reqPaystack.end();
-
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ status: false, message: error.message });
+    console.error('Paystack Init Error:', error.response?.data || error.message);
+    throw new Error('Payment initialization failed');
   }
 }
 
-module.exports = { initializePayment };
+module.exports = {
+  initializePayment
+};

@@ -17,3 +17,8 @@ referral_code
 referred_by
 ```
 increment count when someone signs up using code. But only award for Payed users.
+
+## Focus
+1. db
+2. Referral program
+3. Admin dashboard

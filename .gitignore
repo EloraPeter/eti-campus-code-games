@@ -1,1 +1,5 @@
 .env
+.NOTEs/
+docker-compose.yml
+Dockerfile
+.dockerignore
