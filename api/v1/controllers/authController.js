@@ -43,6 +43,7 @@ async function userRegistration(req, res) {
     };
 
     const competitionAmount = competitionResult.rows[0].price;
+    const competitionTitle = competitionResult.rows[0].title;
 
     // Check if user exists
     const existingUser = await pool.query(
@@ -76,9 +77,9 @@ async function userRegistration(req, res) {
 
     // Save payments in payments table
     await pool.query(
-      `INSERT INTO payments (user_id, competition_id, amount, payment_reference, provider)
-      VALUES ($1, $2, $3, $4, $5)`,
-      [user.id, competition_id, competitionAmount, payment.reference, provider]
+      `INSERT INTO payments (user_id, competition_id, amount, payment_reference, provider, competition_title, payer_name, payer_email)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
+      [user.id, competition_id, competitionAmount, payment.reference, provider, competitionTitle, email, full_name]
     );
 
     // We store the payment reference

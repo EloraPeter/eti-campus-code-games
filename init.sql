@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS users (
     school_name VARCHAR(255),
     is_active BOOLEAN DEFAULT false,
     payment_reference VARCHAR(255),
-    referred_by UUID REFERENCES users(id),
+    referred_by UUID REFERENCES users(id) ON DELETE SET NULL,
     users_referred INTEGER NOT NULL DEFAULT 0,
     is_admin BOOLEAN DEFAULT false,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -24,8 +24,11 @@ CREATE TABLE IF NOT EXISTS competitions (
 
 CREATE TABLE IF NOT EXISTS payments (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    user_id UUID REFERENCES users(id),
-    competition_id UUID REFERENCES competitions(id),
+    user_id UUID REFERENCES users(id) ON DELETE SET NULL,
+    competition_id UUID REFERENCES competitions(id) ON DELETE SET NULL,
+    competition_titile VARCHAR(255) NOT NULL, 
+    payer_email VARCHAR(255) NOT NULL, 
+    payer_name VARCHAR(255) NOT NULL,
     amount DECIMAL NOT NULL,
     status VARCHAR(50) DEFAULT 'pending',
     payment_reference VARCHAR(255) UNIQUE,

@@ -41,6 +41,7 @@ const pool = require('./config/db');
 // Routes
 const authRoutes = require('./api/v1/routes/authRoutes');
 const competitionRoutes = require('./api/v1/routes/competitionRoutes');
+const paymentRoutes = require('./api/v1/routes/paymentRoutes');
 const adminManageAuthRoutes = require('./api/admin/routes/authRoutes');
 const adminManageCompetitionRoutes = require('./api/admin/routes/competitionRoutes');
 const adminManagePaymentRoutes = require('./api/admin/routes/paymentRoutes');
@@ -53,6 +54,7 @@ app.use('/api/webhook/paystack', express.raw({ type: 'application/json' }));
 // Public
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/competitions', competitionRoutes);
+app.use('/api/v1/payments', paymentRoutes);
 
 // Admin (to manage these functionalities)
 app.use('/api/admin/auth', adminManageAuthRoutes);
