@@ -55,9 +55,7 @@ async function updateUser(req, res) {
             email,
             full_name,
             phone,
-            school_name,
-            is_active,
-            is_admin
+            school_name
         } = req.body;
 
         // Prevent empty updates
@@ -66,11 +64,11 @@ async function updateUser(req, res) {
             !email &&
             !full_name &&
             !phone &&
-            !school_name &&
-            typeof is_active === 'undefined' &&
-            typeof is_admin === 'undefined'
+            !school_name
         ) {
-            return res.status(400).json({ error: "Provide at least one field to update" });
+            return res.status(400).json({
+                error: "Provide at least one field to update"
+            });
         }
 
         const result = await pool.query(
@@ -80,15 +78,20 @@ async function updateUser(req, res) {
                 email = COALESCE($2, email),
                 full_name = COALESCE($3, full_name),
                 phone = COALESCE($4, phone),
-                school_name = COALESCE($5, school_name),
-                is_active = COALESCE($6, is_active),
-                is_admin = COALESCE($7, is_admin)
-             WHERE id = $8
+                school_name = COALESCE($5, school_name)
+             WHERE id = $6
              RETURNING id, username, email, full_name, phone, school_name, is_active, is_admin, created_at;`,
-            [username, email, full_name, phone, school_name, is_active, is_admin, id]
+            [
+                username,
+                email,
+                full_name,
+                phone,
+                school_name,
+                id
+            ]
         );
 
-        if (result.rows.length === 0) {
+        if (!result.rows.length) {
             return res.status(404).json({ error: "User not found" });
         }
 

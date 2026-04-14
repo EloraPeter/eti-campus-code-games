@@ -20,17 +20,31 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(morgan('dev'));
-app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }));
+app.use(session({ secret: process.env.SECRET_KEY, resave: false, saveUninitialized: false }));
 app.use(passport.initialize());
 app.use(passport.session()); // Enables session-based login
+app.use(session({
+    secret: process.env.SECRET_KEY, // Keep this safe
+    resave: false,             // Don't save session if unmodified
+    saveUninitialized: false,  // Don't create session until something is stored
+    rolling: true,             // <--- IMPORTANT: Resets the maxAge on every request
+    cookie: {
+        httpOnly: true,        // Prevents JS from reading the cookie (Security)
+        secure: false,         // Set to true if using HTTPS
+        maxAge: 7 * 24 * 60 * 60 * 1000 // <--- 7 days in milliseconds
+    }
+}));
+
 
 const pool = require('./config/db');
 
 // Routes
 const authRoutes = require('./api/v1/routes/authRoutes');
 const competitionRoutes = require('./api/v1/routes/competitionRoutes');
-const adminAuthRoutes = require('./api/admin/routes/authRoutes');
-const adminCompetitionRoutes = require('./api/admin/routes/competitionRoutes');
+const adminManageAuthRoutes = require('./api/admin/routes/authRoutes');
+const adminManageCompetitionRoutes = require('./api/admin/routes/competitionRoutes');
+const adminManagePaymentRoutes = require('./api/admin/routes/paymentRoutes');
+const adminManagePermissionRoutes = require('./api/admin/routes/permissionRoutes');
 const webhookRoutes = require('./routes/webhook');
 
 // IMPORTANT: raw body for webhook
@@ -40,9 +54,11 @@ app.use('/api/webhook/paystack', express.raw({ type: 'application/json' }));
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/competitions', competitionRoutes);
 
-// Admin
-app.use('/api/admin/auth', adminAuthRoutes);
-app.use('/api/admin/competitions', adminCompetitionRoutes);
+// Admin (to manage these functionalities)
+app.use('/api/admin/auth', adminManageAuthRoutes);
+app.use('/api/admin/competitions', adminManageCompetitionRoutes);
+app.use('/api/admin/payments', adminManagePaymentRoutes);
+app.use('/api/admin/permissions', adminManagePermissionRoutes);
 
 // Payment Webhook
 app.use('/api/webhook', webhookRoutes);
@@ -60,104 +76,6 @@ app.get('/', async (req, res) => {
   }
 });
 
-// Simple Admin Route (add this before app.listen)
-app.get('/api/admin/registrations', async (req, res) => {
-    try {
-        const result = await pool.query(`
-            SELECT id, full_name, email, phone, university, category, 
-                   registration_id, payment_status, created_at 
-            FROM registrations 
-            ORDER BY created_at DESC
-        `);
-        res.json(result.rows);
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: "Failed to fetch registrations" });
-    }
-});
-
-// Add this route
-app.get('/api/verify-payment', async (req, res) => {
-    const { reference } = req.query;
-    if (!reference) return res.status(400).json({ status: "error", message: "No reference" });
-
-    try {
-        // Call Paystack Verify API
-        const https = require('https');
-        const options = {
-            hostname: 'api.paystack.co',
-            port: 443,
-            path: `/transaction/verify/${reference}`,
-            method: 'GET',
-            headers: {
-                Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`
-            }
-        };
-
-        const reqPay = https.request(options, (apiRes) => {
-            let data = '';
-            apiRes.on('data', chunk => data += chunk);
-            apiRes.on('end', async () => {
-                try {
-                    const response = JSON.parse(data);
-                    if (response.status && response.data.status === 'success') {
-                        const meta = response.data.metadata || {};
-                        const customer = response.data.customer || {};
-
-                        console.log("PAYSTACK DATA:", response.data);
-                        console.log("METADATA:", meta);
-
-                        // Save to database
-                        const result = await pool.query(`
-                            INSERT INTO registrations 
-                            (full_name, email, phone, university, department, level, category, team_name, 
-                             registration_id, payment_status, payment_reference, amount_paid)
-                            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, 'paid', $10, $11)
-                            ON CONFLICT (email)
-                            DO UPDATE SET
-                            payment_status = 'paid',
-                            payment_reference = EXCLUDED.payment_reference
-                            RETURNING *
-                        `, [
-                            meta.full_name || customer.name,
-                            customer.email,
-                            meta.phone,
-                            meta.university,
-                            meta.department || 'Computer Science',
-                            meta.level || '300L',
-                            meta.category,
-                            meta.team_name || null,
-                            'ETI-' + Date.now().toString().slice(-8),
-                            reference,
-                            response.data.amount
-                        ]);
-
-                        if (result.rows.length > 0) {
-                            res.json({
-                                status: "success",
-                                registration_id: result.rows[0].registration_id
-                            });
-                            console.log("DB RESULT:", result.rows);
-                        } else {
-                            res.json({
-                                status: "error",
-                                message: "Could not save registration"
-                            });
-                        }
-                    } else {
-                        res.json({ status: "failed" });
-                    }
-                } catch (e) {
-                    res.status(500).json({ status: "error" });
-                }
-            });
-        });
-
-        reqPay.end();
-    } catch (err) {
-        res.status(500).json({ status: "error" });
-    }
-});
 
 const PORT = process.env.PORT || 5000;
 

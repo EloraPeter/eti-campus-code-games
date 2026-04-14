@@ -145,14 +145,20 @@ async function userLogin(req, res) {
       });
     }
 
-    // 4. Success (you can add JWT here)
-    return res.status(200).json({
-      message: 'Login successful',
-      user: {
-        id: user.id,
-        email: user.email,
-        username: user.username
-      }
+    // 4. MANUALLY ESTABLISH SESSION
+    // req.login is added by Passport. It calls your serializeUser function.
+    req.login(user, (err) => {
+      if (err) return next(err);
+
+      // 5. Success
+      return res.status(200).json({
+        message: 'Login successful',
+        user: {
+          id: user.id,
+          email: user.email,
+          username: user.username
+        }
+      });
     });
 
   } catch (err) {
